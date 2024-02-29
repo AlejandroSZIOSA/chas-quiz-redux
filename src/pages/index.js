@@ -1,8 +1,23 @@
 /* import Image from "next/image";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] }); */
-
+import { useQuestionsContext } from '@/utils/context/contextProvider'
 export default function Home() {
+  const { state } = useQuestionsContext()
+
+  const { questions, index } = state
+  const { question, wrongAnswers, answer } = questions[index]
+  let answers = [...wrongAnswers]
+  const tempIndex = Math.floor(Math.random() * 4)
+  if (tempIndex === 3) {
+    answers.push(answer)
+  } else {
+    answers.push(answers[tempIndex])
+    answers[tempIndex] = answer
+  }
+
+  console.log(answers)
+
   return (
     <main className=" grid h-[771px] justify-around   bg-slate-700 ">
       <div className="bg-slate-300 grid ">
@@ -31,5 +46,5 @@ export default function Home() {
         </div>
       </div>
     </main>
-  );
+  )
 }

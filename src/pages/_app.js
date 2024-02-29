@@ -1,9 +1,9 @@
-import "@/styles/globals.css";
-import "@/styles/adminPage.css";
-import "@/styles/quizPage.css";
-import Navbar from "@/components/NavBar";
+import '@/styles/globals.css'
+import '@/styles/adminPage.css'
+import '@/styles/quizPage.css'
+import Navbar from '@/components/navBar'
 
-import { QuestionsProvider } from "@/utils/context/contextProvider";
+import { QuestionsProvider } from '@/utils/context/contextProvider'
 
 export default function App({ Component, pageProps }) {
   return (
@@ -13,5 +13,5 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </QuestionsProvider>
     </>
-  );
+  )
 }

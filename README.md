@@ -1,5 +1,86 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+#
+
+##
+
+###
+
+#### reorder quiz + variables
+
+```js
+import { useQuestionsContext } from '@/utils/context/contextProvider'
+export default function Home() {
+  const { state } = useQuestionsContext()
+
+  const { questions, index } = state
+
+  const { question, wrongAnswers, answer } = questions[index]
+
+  let answers = [...wrongAnswers]
+
+  const tempIndex = Math.floor(Math.random() * 4)
+
+  if (tempIndex === 3) {
+    answers.push(answer)
+  } else {
+    answers.push(answers[tempIndex])
+
+    answers[tempIndex] = answer
+  }
+
+  console.log(answers)
+}
+```
+
+contextProvider
+
+- more props to turn into useState
+
+```js
+const initialState = {
+  //time consideration
+
+  waiting: true,
+
+  loading: false,
+
+  //keep track of statistics
+
+  index: 0,
+
+  correct: 0,
+
+  error: false,
+
+  questions: [
+    {
+      id: 1,
+
+      question: 'Question 1',
+
+      answer: 'Answer 1',
+
+      wrongAnswers: ['w1', 'w2', 'w3'],
+
+      points: 2,
+    },
+
+    {
+      id: 2,
+
+      question: 'Question 2',
+
+      answer: 'Answer 2',
+
+      wrongAnswers: ['w1', 'w2', 'w3', 'w4'],
+
+      points: 5,
+    },
+  ],
+}
+```
+
 ## Getting Started
 
 First, run the development server:
