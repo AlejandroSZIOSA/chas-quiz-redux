@@ -20,7 +20,17 @@ export default function contextTestPage() {
     console.log(state);
   }, [state]);
 
+  function generateUniqueId() {
+    const { questions } = state;
+    const lastQuestionObj = questions[questions.length - 1];
+    let lastQuestionId = lastQuestionObj.id;
+    let newQuestionId = lastQuestionId++;
+    return newQuestionId;
+  }
+
   function handleAddQuestion() {
+    const unikeQuestionID = generateUniqueId();
+    console.log(unikeQuestionID); //testing
     dispatch({
       type: "ADD_QUESTION",
       payload: testObj, //It works
