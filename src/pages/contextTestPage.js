@@ -2,28 +2,19 @@ import { useQuestionsContext } from "@/utils/context/contextProvider";
 import { useEffect } from "react";
 
 //Remove a Question by ID
-const questionID = 4;
+const questionID = 2;
 
 export default function contextTestPage() {
-  const { state, dispatch } = useQuestionsContext();
+  const { state, dispatch } = useQuestionsContext(); //Context state
 
   useEffect(() => {
     console.log(state);
   }, [state]);
 
-  //1 Works
-  function getLatestQuestionObjId() {
-    const { questions } = state;
-    let lastQuestionObj = questions[questions.length - 1];
-    const questionId = lastQuestionObj.id;
-    return questionId;
-  }
-
-  //2 Works
+  //1
   function createQuestionObj() {
     let latestId = getLatestQuestionObjId();
     const newUnikeId = latestId + 1;
-    /* console.log(newId); */
     const testObj = {
       id: newUnikeId,
       question: "new q",
@@ -34,7 +25,15 @@ export default function contextTestPage() {
     return testObj;
   }
 
-  //3 Works
+  //2
+  function getLatestQuestionObjId() {
+    const { questions } = state;
+    let lastQuestionObj = questions[questions.length - 1];
+    const questionId = lastQuestionObj.id;
+    return questionId;
+  }
+
+  //3
   function handleAddQuestion() {
     const newQuestionObj = createQuestionObj();
     dispatch({
@@ -44,7 +43,7 @@ export default function contextTestPage() {
   }
 
   // Works
-  function handleRemoveQuestion() {
+  function handleRemoveQuestionById() {
     dispatch({
       type: "REMOVE_QUESTION",
       payload: questionID, //It works
@@ -58,7 +57,7 @@ export default function contextTestPage() {
         Add Q
       </button>
       <br />
-      <button className="bg-slate-400" onClick={handleRemoveQuestion}>
+      <button className="bg-slate-400" onClick={handleRemoveQuestionById}>
         Remove Q
       </button>
     </div>
