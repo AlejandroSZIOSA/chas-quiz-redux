@@ -1,17 +1,8 @@
 import { useQuestionsContext } from "@/utils/context/contextProvider";
 import { useEffect } from "react";
 
-//Add a Question
-const testObj = {
-  id: 3,
-  question: "new q",
-  answer: "new answer",
-  wrongAnswer: ["w1", "w2"],
-  points: 2,
-};
-
 //Remove a Question by ID
-const questionID = 1;
+const questionID = 4;
 
 export default function contextTestPage() {
   const { state, dispatch } = useQuestionsContext();
@@ -20,23 +11,39 @@ export default function contextTestPage() {
     console.log(state);
   }, [state]);
 
-  function generateUniqueId() {
+  //1 Works
+  function getLatestQuestionObjId() {
     const { questions } = state;
-    const lastQuestionObj = questions[questions.length - 1];
-    let lastQuestionId = lastQuestionObj.id;
-    let newQuestionId = lastQuestionId++;
-    return newQuestionId;
+    let lastQuestionObj = questions[questions.length - 1];
+    const questionId = lastQuestionObj.id;
+    return questionId;
   }
 
+  //2 Works
+  function createQuestionObj() {
+    let latestId = getLatestQuestionObjId();
+    const newUnikeId = latestId + 1;
+    /* console.log(newId); */
+    const testObj = {
+      id: newUnikeId,
+      question: "new q",
+      answer: "new answer",
+      wrongAnswer: ["w1", "w2"],
+      points: 2,
+    };
+    return testObj;
+  }
+
+  //3 Works
   function handleAddQuestion() {
-    const unikeQuestionID = generateUniqueId();
-    console.log(unikeQuestionID); //testing
+    const newQuestionObj = createQuestionObj();
     dispatch({
       type: "ADD_QUESTION",
-      payload: testObj, //It works
+      payload: newQuestionObj, //It works
     });
   }
 
+  // Works
   function handleRemoveQuestion() {
     dispatch({
       type: "REMOVE_QUESTION",
