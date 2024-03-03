@@ -8,12 +8,12 @@ import Next from "./nextAndPrivious/next";
 import Privious from "./nextAndPrivious/privious";
 
 export default function Home() {
-  const { state } = useQuestionsContext();
+  const { state, checkAnswer } = useQuestionsContext();
 
   const { questions, index } = state;
   const { question, wrongAnswers, answer } = questions[index];
   let answers = [...wrongAnswers];
-  const tempIndex = Math.floor(Math.random() * 4);
+  const tempIndex = Math.floor(Math.random() * 5);
   if (tempIndex === 3) {
     answers.push(answer);
   } else {
@@ -42,7 +42,10 @@ export default function Home() {
         <div className=" grid  bg-slate-200  grid-rows-2 justify-self-center gap-x-24 p-16 rounded-t-3xl  items-center  grid-cols-2">
           {answers.map((question) => {
             return (
-              <button className="bg-slate-400 justify-self-center grid p-4 rounded-3xl m-1 w-fit font-bold items-center">
+              <button
+                className="bg-slate-400 justify-self-center grid p-4 rounded-3xl m-1 w-fit font-bold items-center"
+                onClick={() => checkAnswer(question === answer)}
+              >
                 {question}
               </button>
             );

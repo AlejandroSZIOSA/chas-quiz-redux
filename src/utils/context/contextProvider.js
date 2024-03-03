@@ -52,6 +52,8 @@ export const ActionTypes = {
   IS_THIS_CORRECT: "IS_THIS_CORRECT",
   NEXT_QUESTION_PLEASE: "NEXT_QUESTION_PLEASE",
 };
+// Define action type
+export const CHECK_ANSWER = "CHECK_ANSWER";
 
 export const openModal = () => ({ type: ActionTypes.OPEN_MODAL });
 export const closeModal = () => ({ type: ActionTypes.CLOSE_MODAL });
@@ -111,6 +113,17 @@ function questionsReducer(state, action) {
         return { ...state, index: newIndex };
       }
     }
+    case CHECK_ANSWER: {
+      const { payload } = action;
+      if (payload) {
+        return {
+          ...state,
+          correct: state.correct + 1, // Increment correct count
+        };
+      }
+      // Handle next question logic here if needed
+      return state; // Return current state if answer is not correct
+    }
 
     default: {
       throw Error("Unknown action: " + action.type);
@@ -123,9 +136,25 @@ export const QuestionsProvider = ({ children }) => {
   //3 declare reducer  //5 pass reducers and initial states
   const [state, dispatch] = useReducer(questionsReducer, initialState);
   console.log(state);
+
+  // Define action creator
+  const checkAnswer = (value) => {
+    dispatch({
+      type: CHECK_ANSWER,
+      payload: value,
+    });
+
+    // Check if there's a payload and if it's the last question
+    if (value == true) {
+      dispatch({
+        type: "NEXT_QUESTION_PLEASE",
+      });
+    }
+  };
+
   //6 return the wrapper parent Context JSX.
   return (
-    <QuestionsContext.Provider value={{ state, dispatch }}>
+    <QuestionsContext.Provider value={{ state, dispatch, checkAnswer }}>
       {children}
     </QuestionsContext.Provider>
   );
