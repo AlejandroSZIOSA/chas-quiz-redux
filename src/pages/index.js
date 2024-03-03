@@ -8,9 +8,9 @@ import Next from "./nextAndPrivious/next";
 import Privious from "./nextAndPrivious/privious";
 
 export default function Home() {
-  const { state, checkAnswer } = useQuestionsContext();
+  const { state, checkAnswer, closeModal } = useQuestionsContext();
 
-  const { questions, index } = state;
+  const { questions, isModalOpen, index } = state;
   const { question, wrongAnswers, answer } = questions[index];
   let answers = [...wrongAnswers];
   const tempIndex = Math.floor(Math.random() * 5);
@@ -25,6 +25,17 @@ export default function Home() {
 
   return (
     <main className=" grid h-[771px] justify-around   bg-slate-700 ">
+      {isModalOpen && (
+        <div className="modal-container isOpen">
+          <div className="modal-content">
+            {/* Modal content goes here */}
+            <p>Want to see the score? I bet you do!</p>
+            <button className="close-btn" onClick={closeModal}>
+              Play again
+            </button>
+          </div>
+        </div>
+      )}
       <div className="grid grid-cols-2 p-[0.1px] ">
         <div className="bg-slate-100 grid">
           <Privious />

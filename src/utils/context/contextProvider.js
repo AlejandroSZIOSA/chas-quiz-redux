@@ -11,7 +11,7 @@ const initialState = {
   //keep track of statistics
   index: 0,
   correct: 0,
-
+  isModalOpen: false,
   error: false,
   questions: [
     {
@@ -95,7 +95,7 @@ function questionsReducer(state, action) {
     }
 
     case "OPEN_MODAL":
-      return { ...state, isModalOpen: true };
+      return { ...state, isModalOpen: true, index: 0 };
 
     case "CLOSE_MODAL": {
       return { ...state, waiting: true, correct: 0, isModalOpen: false };
@@ -108,7 +108,7 @@ function questionsReducer(state, action) {
     case "NEXT_QUESTION_PLEASE": {
       const newIndex = state.index + 1;
       if (newIndex > state.questions.length - 1) {
-        return { ...state, isModalOpen: true, index: 0 };
+        return { ...state, isModalOpen: true };
       } else {
         return { ...state, index: newIndex };
       }
@@ -144,6 +144,12 @@ export const QuestionsProvider = ({ children }) => {
       payload: value,
     });
 
+    if (value && state.index >= state.questions.length - 1) {
+      // If the current index is the last question or beyond, open the modal
+      dispatch({
+        type: ActionTypes.OPEN_MODAL,
+      });
+    }
     // Check if there's a payload and if it's the last question
     if (value == true) {
       dispatch({
@@ -152,9 +158,17 @@ export const QuestionsProvider = ({ children }) => {
     }
   };
 
+  const closeModal = () => {
+    dispatch({
+      type: "CLOSE_MODAL",
+    });
+  };
+
   //6 return the wrapper parent Context JSX.
   return (
-    <QuestionsContext.Provider value={{ state, dispatch, checkAnswer }}>
+    <QuestionsContext.Provider
+      value={{ state, dispatch, checkAnswer, closeModal }}
+    >
       {children}
     </QuestionsContext.Provider>
   );
