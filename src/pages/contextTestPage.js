@@ -1,25 +1,16 @@
 import { useQuestionsContext } from "@/utils/context/contextProvider";
-import { useEffect, useState } from "react";
 
 //Remove a Question by ID
-const questionAddID = 2;
+const questionRemoveID = 3;
 
-//Edit a Question by ID
-const questionEditID = 2;
-
-const testQuestionEditedObj = {
-  id: 2,
-  question: "NEW EDITED Question",
+//a new edited Object Question
+const questionEditedObj = {
+  id: 4,
+  question: "EDITED Question",
 };
 
 export default function contextTestPage() {
   const { state, dispatch } = useQuestionsContext(); //Context state
-  const [inputQuestion, setInputQuestion] = useState("");
-  const [inputAnswer, setInputAnswer] = useState("");
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
 
   //1 FN: Create one question Obj with an Unique ID
   function createQuestionObj() {
@@ -43,15 +34,6 @@ export default function contextTestPage() {
     return questionId;
   }
 
-  //2 FN:
-
-  /* function getQuestionIndex(id) {
-    const { questions } = state;
-    // Find the index of the Object with the given ID
-    const index = questions.findIndex((obj) => obj.id === id);
-    console.log(index);
-  } */
-
   //1 CONTEXT: Read state
   function readQuestionsList() {
     console.log(state);
@@ -70,17 +52,15 @@ export default function contextTestPage() {
   function handleRemoveQuestionById() {
     dispatch({
       type: "REMOVE_QUESTION",
-      payload: questionAddID, //It works
+      payload: questionRemoveID, //It works
     });
   }
 
-  //4
+  //4 CONTEXT :Update the state
   function handleEditQuestion() {
-    /* const indexEditQuestion = getQuestionIndex(); */
-    const id = testQuestionEditedObj.id;
     dispatch({
       type: "EDIT_QUESTION",
-      payload: { id, testQuestionEditedObj },
+      payload: questionEditedObj, //It works
     });
   }
 
@@ -106,24 +86,7 @@ export default function contextTestPage() {
       </div>
 
       <div className="flex flex-col gap-4">
-        <h1>Edit a Question by ID = {questionEditID}</h1>
-        <label>
-          question:
-          <input
-            onChange={(e) => {
-              setInputQuestion(e.target.value);
-            }}
-          ></input>
-        </label>
-        <label>
-          answer:
-          <input
-            onChange={(e) => {
-              setInputAnswer(e.target.value);
-            }}
-          ></input>
-        </label>
-        <p>{inputQuestion}</p>
+        <h1>Edit a Question by ID = {questionEditedObj.id}</h1>
         <button className=" w-36 bg-slate-400" onClick={handleEditQuestion}>
           EDIT Q
         </button>
