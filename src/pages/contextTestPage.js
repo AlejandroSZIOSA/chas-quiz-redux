@@ -11,10 +11,10 @@ export default function contextTestPage() {
     console.log(state);
   }, [state]);
 
-  //1
+  //1 FN: Create one question Obj with an Unique ID
   function createQuestionObj() {
     let latestId = getLatestQuestionObjId();
-    const newUnikeId = latestId + 1;
+    const newUnikeId = latestId + 1; //generate unique ID
     const testObj = {
       id: newUnikeId,
       question: "new q",
@@ -25,7 +25,7 @@ export default function contextTestPage() {
     return testObj;
   }
 
-  //2
+  //1.2 FN: Get latest question Obj ID
   function getLatestQuestionObjId() {
     const { questions } = state;
     let lastQuestionObj = questions[questions.length - 1];
@@ -33,7 +33,7 @@ export default function contextTestPage() {
     return questionId;
   }
 
-  //3
+  //3 CONTEXT: Add a New Question to the Context State
   function handleAddQuestion() {
     const newQuestionObj = createQuestionObj();
     dispatch({
@@ -42,7 +42,7 @@ export default function contextTestPage() {
     });
   }
 
-  // Works
+  //4 CONTEXT: Remove a Selected question by ID
   function handleRemoveQuestionById() {
     dispatch({
       type: "REMOVE_QUESTION",
