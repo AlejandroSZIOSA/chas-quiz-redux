@@ -74,8 +74,20 @@ function questionsReducer(state, action) {
         ),
       };
     }
-    case "UPDATE_QUESTION": {
+    case "EDIT_QUESTION": {
       //TODO
+      /* const questionId = action.payload; */
+      const { id } = action.payload;
+      const editedQuestion = action.payload;
+
+      console.log(id);
+      console.log(editedQuestion);
+      /* return {
+        ...state,
+        questions: state.questions.filter(
+          (question) => question.id !== questionId
+        ),
+      }; */
     }
 
     case "OPEN_MODAL":
