@@ -4,7 +4,7 @@ const inter = Inter({ subsets: ["latin"] }); */
 import { useQuestionsContext } from "@/utils/context/contextProvider";
 //import Falskt from"./trueOrFalseComp/falskt"
 import { useState, useEffect } from "react";
-import Next from "./nextAndPrivious/next";
+
 import contextTestPage from "./contextTestPage";
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
   const { questions, isModalOpen, index } = state;
   const { question, wrongAnswers, answer } = questions[index];
   let answers = [...wrongAnswers];
-  const tempIndex = Math.floor(Math.random() * 5);
+  const tempIndex = Math.floor(Math.random() * 4);
   if (tempIndex === 3) {
     answers.push(answer);
   } else {
@@ -41,9 +41,6 @@ export default function Home() {
         </div>
       )}
 
-      <div className="bg-slate-100 grid ">
-        <Next />
-      </div>
       <div className="bg-slate-300 grid pt-4">
         <div className=" grid  max-w-xl m-6 ">
           <h4 className="bg-slate-400  items-center  grid p-4 rounded-3xl text-center">
