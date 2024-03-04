@@ -5,6 +5,7 @@ import { useQuestionsContext } from "@/utils/context/contextProvider";
 //import Falskt from"./trueOrFalseComp/falskt"
 import { useState, useEffect } from "react";
 import Next from "./nextAndPrivious/next";
+import contextTestPage from "./contextTestPage";
 
 export default function Home() {
   const { state, checkAnswer, closeModal } = useQuestionsContext();
@@ -28,8 +29,12 @@ export default function Home() {
         <div className="modal-container isOpen">
           <div className="grid ">
             {/* Modal content goes here */}
-            <p className="bg-white rounded-2xl m-4 w-fit grid justify-self-center p-4">Want to see the score? I bet you do!</p>
-            <button className="close-btn justify-self-center p-6 hover:bg-green-400 rounded-full" onClick={closeModal}>
+            <p className="bg-white rounded-2xl m-4 w-fit grid justify-self-center p-4">
+              Want to see the score? I bet you do!
+            </p>
+            <button
+              className="close-btn justify-self-center p-6 hover:bg-green-400 rounded-full"
+              onClick={closeModal}>
               Play again
             </button>
           </div>

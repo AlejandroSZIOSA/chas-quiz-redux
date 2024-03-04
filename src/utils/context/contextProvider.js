@@ -42,6 +42,7 @@ const initialState = {
       wrongAnswers: ["w1", "w2", "w3", "w4"],
       points: 5,
     },
+    
   ],
 };
 
