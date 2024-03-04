@@ -53,7 +53,7 @@ const AdminPage = () => {
       id: newUnikeId,
       question: newQuestion,
       answer: correctAnswer.trim(),
-      wrongAnswer: options.filter((opt) => opt.trim() !== ""),
+      wrongAnswers: options.filter((opt) => opt.trim() !== ""),
       points: parseInt(points, 10) || 0,
     };
 

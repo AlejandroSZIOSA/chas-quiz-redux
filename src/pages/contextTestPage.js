@@ -20,7 +20,7 @@ export default function contextTestPage() {
       id: newUnikeId,
       question: "new q",
       answer: "new answer",
-      wrongAnswer: ["w1", "w2"],
+      wrongAnswers: ["w1", "w2", "w3"],
       points: 2,
     };
     return testQuestionObj1;
@@ -65,7 +65,7 @@ export default function contextTestPage() {
   }
 
   return (
-    <div className="flex flex-col gap-5 text-2xl items-center">
+    <div className="flex flex-col p-8 gap-5 text-2xl items-center">
       <h1>CONTEXT C.R.U.D OPERATIONS TESTS (Using the Console)</h1>
       <div className="flex flex-row gap-4">
         <button className=" w-36 bg-slate-400" onClick={readQuestionsList}>
