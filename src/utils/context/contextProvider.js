@@ -39,7 +39,7 @@ const initialState = {
       id: 4,
       question: "What is the largest social media network in the world?",
       answer: "Facebook",
-      wrongAnswers:  ["Youtube, Whatsapp, Tiktok"],
+      wrongAnswers:  ["Youtube", "Whatsapp", "Tiktok"],
       points: 5,
     },
     
