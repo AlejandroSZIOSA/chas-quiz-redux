@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useQuestionsContext } from "@/utils/context/contextProvider";
 
 const AdminPage = () => {
   const [question, setQuestion] = useState({});
@@ -6,6 +7,36 @@ const AdminPage = () => {
   const [options, setOptions] = useState(["", "", "", ""]);
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [points, setPoints] = useState("");
+
+  const { state, dispatch } = useQuestionsContext();
+
+  function createQuestionObj() {
+    let latestId = getLatestQuestionObjId();
+    const newUnikeId = latestId + 1; //generate unique ID
+    const testQuestionObj1 = {
+      id: newUnikeId,
+      question: newQuestion,
+      answer: correctAnswer,
+      wrongAnswer: options,
+      points: 2,
+    };
+    return testQuestionObj1;
+  }
+
+  function getLatestQuestionObjId() {
+    const { questions } = state;
+    let lastQuestionObj = questions[questions.length - 1];
+    const questionId = lastQuestionObj.id;
+    return questionId;
+  }
+
+  function handleAddQuestion() {
+    const newQuestionObj = createQuestionObj();
+    dispatch({
+      type: "ADD_QUESTION",
+      payload: newQuestionObj, //It works
+    });
+  }
 
   const handleOptionChange = (index, value) => {
     const updatedOptions = [...options];
@@ -35,6 +66,7 @@ const AdminPage = () => {
     //Här skickas frågorna till backenden
 
     console.log("Saved data:", question);
+    handleAddQuestion();
   };
 
   return (
