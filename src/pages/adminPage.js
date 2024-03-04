@@ -47,10 +47,13 @@ const AdminPage = () => {
   //options = 3 wrong answers and 1 correct answer
 
   const addQuestion = () => {
+    let latestId = getLatestQuestionObjId();
+    const newUnikeId = latestId + 1; //generate unique ID
     const newQuestionObject = {
+      id: newUnikeId,
       question: newQuestion,
-      options: options.filter((opt) => opt.trim() !== ""),
-      correctAnswer: correctAnswer.trim(),
+      answer: correctAnswer.trim(),
+      wrongAnswer: options.filter((opt) => opt.trim() !== ""),
       points: parseInt(points, 10) || 0,
     };
 
@@ -66,7 +69,11 @@ const AdminPage = () => {
     //Här skickas frågorna till backenden
 
     console.log("Saved data:", question);
-    handleAddQuestion();
+    //handleAddQuestion();
+    dispatch({
+      type: "ADD_QUESTION",
+      payload: question, //It works
+    });
   };
 
   return (
