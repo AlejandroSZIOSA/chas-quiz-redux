@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const AdminPage = () => {
-  const [questions, setQuestions] = useState([]);
+  const [question, setQuestion] = useState({});
   const [newQuestion, setNewQuestion] = useState("");
   const [options, setOptions] = useState(["", "", "", ""]);
   const [correctAnswer, setCorrectAnswer] = useState("");
@@ -23,7 +23,7 @@ const AdminPage = () => {
       points: parseInt(points, 10) || 0,
     };
 
-    setQuestions([...questions, newQuestionObject]);
+    setQuestion(newQuestionObject);
     // Reset form fields
     setNewQuestion("");
     setOptions(["", "", "", ""]);
@@ -34,7 +34,7 @@ const AdminPage = () => {
   const saveData = () => {
     //Här skickas frågorna till backenden
 
-    console.log("Saved data:", questions);
+    console.log("Saved data:", question);
   };
 
   return (
@@ -99,22 +99,6 @@ const AdminPage = () => {
           Save Data
         </button>
       </div>
-      <ul className="list-none p-0">
-        {questions.map((q, index) => (
-          <li key={index} className="mb-4">
-            <strong>{q.question}</strong>
-            <ul className="list-none p-0">
-              {q.options.map((opt, optIndex) => (
-                <li key={optIndex}>{opt}</li>
-              ))}
-            </ul>
-            <p className="text-green-500 mb-2">
-              Correct Answer: {q.correctAnswer}
-            </p>
-            <p className="text-blue-500 mb-2">Points: {q.points}</p>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };
