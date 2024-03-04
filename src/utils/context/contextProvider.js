@@ -145,7 +145,7 @@ export const QuestionsProvider = ({ children }) => {
       payload: value,
     });
 
-    if (value && state.index >= state.questions.length - 1) {
+    if (value && state.index >= state.questions.length - 1 ||  !value) {
       // If the current index is the last question or beyond, open the modal
       dispatch({
         type: ActionTypes.OPEN_MODAL,
